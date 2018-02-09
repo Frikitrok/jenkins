@@ -7,19 +7,20 @@ pipeline {
     stages {
         stage('Clone git repo') {
             steps {
-                sh 'rm -rf /tmp/maven'
-                sh 'git clone https://github.com/Frikitrok/maven-hometask /tmp/maven'
+                sh 'rm -rf ./maven'
+                //sh 'git clone https://github.com/Frikitrok/maven-hometask ./maven'
             }
         }
         stage('Make build') {
             agent {
                 docker { 
                     image 'maven:alpine' 
-                    args  '-v /tmp/maven:/maven'
+                    //args  '-v /var/lib/jenkins/workspace/maven-proj/maven/:/maven'
+                    customWorkspace './maven'
                 }
             }
             steps {
-                sh 'cd /maven'
+                sh 'ls -la'
                 sh 'mvn install'
             }
         }
