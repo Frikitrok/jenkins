@@ -1,4 +1,4 @@
-pipeline {
+peline {
     agent {
         node {
           label 'master'
@@ -7,22 +7,22 @@ pipeline {
     stages {
         stage('Clone git repo') {
             steps {
-                sh 'rm -rf ./maven'
-                //sh 'git clone https://github.com/Frikitrok/maven-hometask ./maven'
+                sh 'rm -rf ./gradle'
+                //sh 'git clone https://github.com/Frikitrok/gradle-hometask ./gradle'
             }
         }
         stage('Make build') {
             agent {
                 docker { 
-                    image 'maven:alpine' 
-                    //args  '-v /var/lib/jenkins/workspace/maven-proj/maven/:/maven'
-                    customWorkspace './maven'
+                    image 'gradle:alpine' 
+                    customWorkspace './gradle'
                 }
             }
             steps {
                 sh 'ls -la'
-                sh 'mvn install'
+                sh 'gradle clean build'
             }
         }
     }
 }
+
