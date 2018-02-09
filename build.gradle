@@ -1,0 +1,39 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+  dependencies {
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.10.RELEASE"
+  }
+}
+
+subprojects {
+    version = '1.0'
+}
+
+apply plugin: 'java'
+apply plugin: "org.springframework.boot"
+
+jar {
+    baseName = 'devops-epam-labs'
+    version =  '1.0.0'
+}
+
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile(
+            'org.springframework.boot:spring-boot-starter-actuator',
+            'org.springframework.boot:spring-boot-starter-thymeleaf'
+    )
+    testCompile(
+            'com.nitorcreations:junit-runners:1.2',
+            'org.springframework.boot:spring-boot-starter-test'
+    )
+}
+

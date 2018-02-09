@@ -1,0 +1,19 @@
+task createzip(type: Zip) { //this to exewcute zip task manual
+def host = "hostname".execute().text.trim() 
+def date = "date -I".execute().text.trim()
+    from '~/gradle-test/'
+    archiveName "${host}${date}.zip"
+    destinationDir(file('../'))
+}
+task antZip() { //this one make zip after every build
+        println 'ant zip make'
+        def host = "hostname".execute().text.trim() 
+        def date = "date -I".execute().text.trim() 
+
+        ant.zip(destfile: "../${host}${date}.zip") {
+            fileset(dir: '..') {
+                include(name: '**')
+                exclude(name: '*.zip')
+            }
+        }    
+}
